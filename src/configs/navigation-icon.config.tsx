@@ -1,3 +1,4 @@
+import { LuBoxes } from 'react-icons/lu'
 import {
     PiHouseLineDuotone,
     PiArrowsInDuotone,
@@ -11,6 +12,7 @@ export type NavigationIcons = Record<string, JSX.Element>
 
 const navigationIcon: NavigationIcons = {
     home: <PiHouseLineDuotone />,
+    flos: <LuBoxes />,
     singleMenu: <PiAcornDuotone />,
     collapseMenu: <PiArrowsInDuotone />,
     groupSingleMenu: <PiBookOpenUserDuotone />,
