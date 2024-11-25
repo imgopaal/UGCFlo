@@ -1,7 +1,8 @@
 import classNames from '@/utils/classNames'
 import { HEADER_HEIGHT } from '@/constants/theme.constant'
-import type { ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import type { CommonProps } from '@/@types/common'
+import { useLocation } from 'react-router-dom'
 
 interface HeaderProps extends CommonProps {
     headerStart?: ReactNode
@@ -21,9 +22,13 @@ const Header = (props: HeaderProps) => {
         wrapperClass,
     } = props
 
-    const pathname = window.location.pathname.replace('/', '')
-
-
+    const location = useLocation();
+    const pathname = useMemo(() => {
+    return location.pathname.replace(/^\/|\/+/g, (match, index) => {
+        return index === 0 ? '' : ' > ';
+    });
+    }, [location.pathname]);
+      
     return (
         <header className={classNames('header', className)}>
             <div
