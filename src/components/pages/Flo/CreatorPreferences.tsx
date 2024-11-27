@@ -59,7 +59,7 @@ export function CreatorPreferences() {
 			</div>
 
 			<div>
-				<Label title="Country/Region" />
+				<Label title="Other Preferences" />
 				<textarea
 					placeholder=" Looking for a specific type of creator? (e.g. creators with pets)"
 					className="border-white w-full min-h-[100px] px-3 py-2 border border-gray-300 rounded-lg"
