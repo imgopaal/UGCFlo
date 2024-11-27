@@ -41,7 +41,7 @@ const Header = (props: HeaderProps) => {
             >
                 <div className="header-action header-action-start">
                     {headerStart}
-                    <h1 className="text-2xl capitalize font-bold text-gray-900">{pathname}</h1>
+                    <h1 className="text-3xl capitalize font-bold text-gray-900">{pathname}</h1>
                 </div>
                 {headerMiddle && (
                     <div className="header-action header-action-middle">

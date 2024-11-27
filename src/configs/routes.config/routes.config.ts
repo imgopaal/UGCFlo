@@ -9,7 +9,13 @@ export const protectedRoutes: Routes = [
     {
         key: 'flos',
         path: '/flos',
-        component: lazy(() => import('@/views/Flos')),
+        component: lazy(() => import('@/views/Flos/page')),
+        authority: [],
+    },
+    {
+        key: 'flos/new',
+        path: '/flos/new',
+        component: lazy(() => import('@/views/Flos/New/page')),
         authority: [],
     },
     ...othersRoute,

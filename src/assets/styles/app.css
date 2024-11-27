@@ -3,3 +3,7 @@
 @import "./template/index.css";
 @import "./vendors/index.css";
 @import "./tailwind/index.css";
+
+.select-control{
+    background-color: white;
+}
