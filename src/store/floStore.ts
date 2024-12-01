@@ -3,23 +3,27 @@ import { FloFormData, FloFormSchema, ValidationErrors, CreatorPreferenceField } 
 import toast from 'react-hot-toast'
 
 interface FloStore {
+	currentStep: number
 	formData: FloFormData
 	errors: ValidationErrors
 	isLoading: boolean
 	setField: (field: keyof FloFormData, value: any) => void
 	setCreatorPreference: (field: CreatorPreferenceField, value: string) => void
 	validateForm: () => boolean
+	validateStep: () => boolean
 	calculatePrice: () => number
 	saveDraft: () => Promise<void>
 	completeOrder: () => Promise<boolean>
 	setErrors: (errors: ValidationErrors) => void
 	resetForm: () => void
+	nextStep: () => void
+	prevStep: () => void
 }
 
 const initialFormData: FloFormData = {
 	title: '',
 	videoType: '',
-	videoCount: 0,
+	videoCount: 1,
 	creatorPreferences: {
 		gender: '',
 		ageRange: '',
@@ -29,6 +33,7 @@ const initialFormData: FloFormData = {
 }
 
 export const useFloStore = create<FloStore>((set, get) => ({
+	currentStep: 0,
 	formData: initialFormData,
 	errors: {},
 	isLoading: false,
@@ -60,20 +65,52 @@ export const useFloStore = create<FloStore>((set, get) => ({
 
 	resetForm: () => {
 		set({
-			formData: {
-				title: '',
-				videoType: '',
-				videoCount: 0,
-				creatorPreferences: {
-					gender: '',
-					ageRange: '',
-					country: '',
-					otherPreferences: '',
-				},
-			},
+			currentStep: 0,
+			formData: initialFormData,
 			errors: {},
 			isLoading: false,
 		})
+	},
+
+	validateStep: () => {
+		const { currentStep, formData } = get()
+		let errors: ValidationErrors = {}
+
+		switch (currentStep) {
+			case 0:
+				if (!formData.title) {
+					errors.title = 'Title is required'
+				}
+				break
+			case 1:
+				if (!formData.videoType) {
+					errors.videoType = 'Please select a video type'
+				}
+				break
+			case 2:
+				if (formData.videoCount < 1) {
+					errors.videoCount = 'Must have at least 1 video'
+				}
+				break
+			case 3:
+				const { gender, ageRange, country, otherPreferences } = formData.creatorPreferences
+				if (!gender) {
+					errors['creatorPreferences.gender'] = 'Please select a gender preference'
+				}
+				if (!ageRange) {
+					errors['creatorPreferences.ageRange'] = 'Please select an age range'
+				}
+				if (!country) {
+					errors['creatorPreferences.country'] = 'Please select a country'
+				}
+				if (!otherPreferences) {
+					errors['creatorPreferences.otherPreferences'] = 'Please specify creator preferences'
+				}
+				break
+		}
+
+		set({ errors })
+		return Object.keys(errors).length === 0
 	},
 
 	validateForm: () => {
@@ -93,6 +130,16 @@ export const useFloStore = create<FloStore>((set, get) => ({
 			set({ errors: validationErrors })
 			return false
 		}
+	},
+
+	nextStep: () => {
+		if (get().validateStep()) {
+			set(state => ({ currentStep: Math.min(state.currentStep + 1, 4) }))
+		}
+	},
+
+	prevStep: () => {
+		set(state => ({ currentStep: Math.max(state.currentStep - 1, 0) }))
 	},
 
 	calculatePrice: () => {

@@ -34,7 +34,7 @@ export function CreatorPreferences() {
 						return (
 							<Button
 								key={age}
-								className={`px-4 py-2 border rounded-md hover:bg-gray-50`}
+								className={`px-4 py-2 border rounded-md hover:bg-gray-50 ${ageRangeState === age && 'hover:bg-[#2a85ff]'}`}
 								variant={ageRangeState === age ? 'solid' : 'default'}
 								onClick={() => {
 									setCreatorPreference('ageRange', age)

@@ -7,16 +7,16 @@ interface TotalPriceProps {
 	isLoading: boolean
 }
 
-export function TotalPrice({ price, onSaveDraft, onCompleteOrder, isLoading }: TotalPriceProps) {
+export function TotalPrice({ onSaveDraft, onCompleteOrder, isLoading }: TotalPriceProps) {
 	return (
-		<div className="flex justify-between items-center py-4 border-t">
-			<div>
+		<div className="flex justify-between items-center py-4">
+			{/* <div>
 				<p className="text-sm text-gray-500">
 					You'll be able to make edits to your flo for 24 hours after you complete your order
 				</p>
-			</div>
+			</div> */}
 			<div className="text-right">
-				<div className="text-2xl font-bold">A$ {price}</div>
+				{/* <div className="text-2xl font-bold">A$ {price}</div> */}
 				<div className="flex gap-4 mt-2">
 					<Button
 						disabled={isLoading}
