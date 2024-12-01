@@ -24,7 +24,7 @@ const CollapsibleSide = ({ children }: CommonProps) => {
                         headerStart={
                             <>
                                 {smaller.lg && <MobileNav />}
-                                {larger.lg && <SideNavToggle />}
+                                {/* {larger.lg && <SideNavToggle />} */}
                             </>
                         }
                         headerEnd={

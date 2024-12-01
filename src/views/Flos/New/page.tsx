@@ -6,6 +6,7 @@ import {
 	TotalPrice,
 	VideoCounter,
 } from '@/components/pages/Flo'
+import UGCLoader from '@/components/shared/UGCLoader'
 import { Input } from '@/components/ui'
 import { videoTypes } from '@/mock/data/commonData'
 
