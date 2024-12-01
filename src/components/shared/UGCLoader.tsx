@@ -4,7 +4,7 @@ import imgSrc from '../../assets/animation/Loading_Animation-Transparent.gif'
 
 const UGCLoader: React.FC = () => {
 	const location = useLocation()
-	const isRootRoute = location.pathname === '/'
+	const isRootRoute = location.pathname === '/' || location.pathname === '/sign-in' || location.pathname === '/sign-up'   
 
 	return (
 		<div className={`fixed inset-0 flex items-center justify-center ${isRootRoute ? 'left-0' : 'left-64'}`}>

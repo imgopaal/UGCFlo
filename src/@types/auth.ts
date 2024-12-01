@@ -20,6 +20,7 @@ export type SignUpCredential = {
     userName: string
     email: string
     password: string
+    userType : SignUpType
 }
 
 export type ForgotPassword = {
@@ -54,3 +55,7 @@ export type OauthSignInCallbackPayload = {
     onSignIn: (tokens: Token, user?: User) => void
     redirect: () => void
 }
+
+export type SignUpType = 'creator' | 'brand'
+
+export const signupTypesArray: SignUpType[] = ['creator', 'brand']
