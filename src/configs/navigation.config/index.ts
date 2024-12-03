@@ -13,6 +13,16 @@ const navigationConfig: NavigationTree[] = [
 		authority: [],
 		subMenu: [],
 	},
+	{
+		key: 'inbox',
+		path: '/inbox',
+		title: 'Inbox',
+		translateKey: 'nav.inbox',
+		icon: 'inbox',
+		type: NAV_ITEM_TYPE_ITEM,
+		authority: [],
+		subMenu: [],
+	},
 ]
 
 export default navigationConfig
