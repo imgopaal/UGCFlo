@@ -5,6 +5,7 @@ import {
 	CONCEPTS_PREFIX_PATH,
 	GUIDE_PREFIX_PATH,
 } from '@/constants/route.constant'
+import { Order } from '@/views/Orders/types'
 
 import { ArrowUpSquare, Camera, HandMetal, Play } from 'lucide-react'
 
@@ -1034,5 +1035,177 @@ export const searchQueryPoolData = [
 		icon: 'changeLog',
 		category: 'Docs',
 		categoryTitle: 'Guide',
+	},
+]
+
+export const mockOrders: Order[] = [
+	{
+		id: '1',
+		title: 'Fitness Tracker Pro',
+		description:
+			'Create engaging content showcasing our new fitness tracking features and heart rate monitoring capabilities.',
+		status: 'active',
+		budget: '$500-1000',
+		applicants: 6,
+		approved: 1,
+		total: 1,
+		deadline: '2024-04-15',
+		image: 'https://images.unsplash.com/photo-1576243345690-4e4b79b63288?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'TechFit',
+			logo: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: [
+			'Show product in use during workout',
+			'Highlight heart rate monitoring feature',
+			'Demonstrate app integration',
+		],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '30-60s',
+				quantity: 1,
+			},
+			{
+				type: 'photo',
+				quantity: 3,
+			},
+		],
+	},
+	{
+		id: '2',
+		title: 'EcoBottle Campaign',
+		description: 'Sustainable water bottle campaign focusing on eco-friendly materials and reducing plastic waste.',
+		status: 'active',
+		budget: '$200-500',
+		applicants: 4,
+		approved: 1,
+		total: 1,
+		deadline: '2024-04-10',
+		image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'GreenLife',
+			logo: 'https://images.unsplash.com/photo-1544594376-0c8comad9908?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: ['Showcase sustainable materials', 'Demonstrate durability', 'Highlight eco-friendly packaging'],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '15-30s',
+				quantity: 1,
+			},
+		],
+	},
+	{
+		id: '3',
+		title: 'SmartDesk Pro Launch',
+		description: 'Height-adjustable desk with built-in wireless charging and smart features.',
+		status: 'draft',
+		budget: '$800-1200',
+		applicants: 0,
+		approved: 0,
+		total: 3,
+		deadline: '2024-05-01',
+		image: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'WorkSmart',
+			logo: 'https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: [
+			'Demonstrate height adjustment',
+			'Show wireless charging in action',
+			'Highlight cable management',
+		],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '60s',
+				quantity: 1,
+			},
+			{
+				type: 'photo',
+				quantity: 5,
+			},
+		],
+	},
+	{
+		id: '4',
+		title: 'VeganBites Snack Review',
+		description: 'Plant-based protein snacks for active lifestyle and post-workout recovery.',
+		status: 'completed',
+		budget: '$300-600',
+		applicants: 12,
+		approved: 5,
+		total: 5,
+		deadline: '2024-03-20',
+		image: 'https://images.unsplash.com/photo-1540914124281-342587941389?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'VeganBites',
+			logo: 'https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: ['Taste test on camera', 'Show nutritional information', 'Demonstrate portability'],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '45-60s',
+				quantity: 1,
+			},
+		],
+	},
+	{
+		id: '5',
+		title: 'YogaFlow Mat Campaign',
+		description: 'Premium eco-friendly yoga mat with alignment guides for perfect form.',
+		status: 'active',
+		budget: '$400-700',
+		applicants: 8,
+		approved: 2,
+		total: 4,
+		deadline: '2024-04-20',
+		image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'YogaFlow',
+			logo: 'https://images.unsplash.com/photo-1544592732-a7e556d4ed2a?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: ['Demonstrate alignment features', 'Show grip quality', 'Feature eco-friendly materials'],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '30s',
+				quantity: 2,
+			},
+			{
+				type: 'photo',
+				quantity: 3,
+			},
+		],
+	},
+	{
+		id: '6',
+		title: 'SleepPod Review',
+		description: 'Smart sleep tracking earbuds with noise cancellation and comfort features.',
+		status: 'active',
+		budget: '$600-900',
+		applicants: 15,
+		approved: 3,
+		total: 6,
+		deadline: '2024-04-25',
+		image: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=60',
+		brand: {
+			name: 'DreamTech',
+			logo: 'https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=200&auto=format&fit=crop&q=60',
+		},
+		requirements: ['Demonstrate noise cancellation', 'Show sleep tracking app', 'Review comfort features'],
+		deliverables: [
+			{
+				type: 'video',
+				duration: '90s',
+				quantity: 1,
+			},
+			{
+				type: 'photo',
+				quantity: 4,
+			},
+		],
 	},
 ]

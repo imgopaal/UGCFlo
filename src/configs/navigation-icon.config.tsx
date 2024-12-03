@@ -1,5 +1,6 @@
 import { Inbox } from 'lucide-react'
 import { LuBoxes } from 'react-icons/lu'
+import { MdOutlineShoppingCart } from "react-icons/md";
 import {
     PiHouseLineDuotone,
     PiArrowsInDuotone,
@@ -15,6 +16,7 @@ const navigationIcon: NavigationIcons = {
     home: <PiHouseLineDuotone />,
     flos: <LuBoxes />,
     inbox: <Inbox />,
+    orders: <MdOutlineShoppingCart />,
     singleMenu: <PiAcornDuotone />,
     collapseMenu: <PiArrowsInDuotone />,
     groupSingleMenu: <PiBookOpenUserDuotone />,
