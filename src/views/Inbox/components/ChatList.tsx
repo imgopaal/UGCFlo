@@ -10,8 +10,6 @@ import { TbSearch, TbVolumeOff, TbX } from 'react-icons/tb'
 import useChat from '../hooks/useChat'
 import { useChatStore } from '../store/chatStore'
 import type { ChatType } from '../types'
-import ChatSegment from './ChatSegment'
-import NewChat from './NewChat'
 
 const ChatList = () => {
 	const chats = useChatStore(state => state.chats)
@@ -93,32 +91,25 @@ const ChatList = () => {
 		setShowSearchBar(!showSearchBar)
 	}
 
-	useEffect(() => {
-		console.log(chats, 'chats')
-	}, [chats])
-
 	return (
-		<div className="flex flex-col justify-between h-full">
-			<div className="mb-4">
-				<div className="flex items-center justify-between mb-4">
-					{showSearchBar ? (
-						<input
-							ref={inputRef}
-							className="flex-1 h-full placeholder:text-gray-400 placeholder:text-base placeholder:font-normal bg-transparent focus:outline-none heading-text font-bold"
-							placeholder="Search chat"
-							onChange={handleInputChange}
-						/>
-					) : (
-						<h4>Chat</h4>
-					)}
-					<button className="close-button text-lg" type="button" onClick={handleSearchToggleClick}>
-						{showSearchBar ? <TbX /> : <TbSearch />}
-					</button>
-				</div>
-				<ChatSegment />
+		<div className="flex flex-col h-full min-w-full">
+			<div className="flex items-center justify-between mb-4">
+				{showSearchBar ? (
+					<input
+						ref={inputRef}
+						className="flex-1 h-full placeholder:text-gray-400 placeholder:text-base placeholder:font-normal bg-transparent focus:outline-none heading-text font-bold"
+						placeholder="Search chat"
+						onChange={handleInputChange}
+					/>
+				) : (
+					<h4>Chat</h4>
+				)}
+				<button className="close-button text-lg" type="button" onClick={handleSearchToggleClick}>
+					{showSearchBar ? <TbX /> : <TbSearch />}
+				</button>
 			</div>
 			{chats.length > 0 && (
-				<ScrollBar className="h-[calc(100%-150px)] overflow-y-auto">
+				<ScrollBar className="h-full overflow-y-auto">
 					<div className="flex flex-col gap-2 h-full">
 						{chats
 							?.filter(item => {
@@ -175,7 +166,6 @@ const ChatList = () => {
 					</div>
 				</ScrollBar>
 			)}
-			<NewChat />
 		</div>
 	)
 }
