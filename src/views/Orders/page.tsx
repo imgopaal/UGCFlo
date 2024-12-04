@@ -1,12 +1,13 @@
+import { FilterModal, OrderCard, SortMenu } from '@/components/pages/Flo/Orders'
+import { Button, Input } from '@/components/ui'
+import { mockOrders } from '@/mock/data/commonData'
+import useUserTypeStore from '@/store/userTypeStore'
+import { filterOrders, sortOrders } from '@/utils/orders/orderUtils'
 import { useMemo, useState } from 'react'
 import { OrderFilters as OrderFiltersType, SortOption } from './types'
-import { filterOrders, sortOrders } from '@/utils/orders/orderUtils'
-import { mockOrders } from '@/mock/data/commonData'
-import { FilterModal, OrderCard, SortMenu, ViewToggle } from '@/components/pages/Flo/Orders'
-import { Button, Input } from '@/components/ui'
 
 const Orders = () => {
-	const [view, setView] = useState<'creator' | 'brand'>('brand')
+	const view = useUserTypeStore(state => state.view)
 	const [searchQuery, setSearchQuery] = useState('')
 	const [filters, setFilters] = useState<OrderFiltersType>({})
 	const [sort, setSort] = useState<SortOption>({ field: 'deadline', direction: 'asc' })
@@ -19,11 +20,6 @@ const Orders = () => {
 
 	return (
 		<div>
-			<div className="flex items-center justify-between mb-8">
-				<h1 className="text-2xl font-semibold text-gray-900">{view === 'brand' ? 'Orders' : 'Active Jobs'}</h1>
-				<ViewToggle view={view} onViewChange={setView} />
-			</div>
-
 			<div className="flex flex-col gap-4 mb-6">
 				<div className="flex gap-4">
 					<div className="flex-1">
