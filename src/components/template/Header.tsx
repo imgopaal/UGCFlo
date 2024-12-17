@@ -19,9 +19,11 @@ const Header = (props: HeaderProps) => {
 
 	const location = useLocation()
 	const pathname = useMemo(() => {
-		return location.pathname.replace(/^\/|\/+/g, (match, index) => {
-			return index === 0 ? '' : ' > '
-		})
+		return location.pathname
+			.replace(/^\/|\/+/g, (match, index) => {
+				return index === 0 ? '' : ' > '
+			})
+			.replaceAll('-', ' ')
 	}, [location.pathname])
 
 	const view = useUserTypeStore(state => state.view)
@@ -39,8 +41,8 @@ const Header = (props: HeaderProps) => {
 				</div>
 
 				{headerMiddle && <div className="header-action header-action-middle">{headerMiddle}</div>}
-				
-                <div className="header-action header-action-end">
+
+				<div className="header-action header-action-end">
 					<div>
 						<ViewToggle view={view} onViewChange={setView} />
 					</div>
