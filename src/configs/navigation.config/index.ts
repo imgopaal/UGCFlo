@@ -33,16 +33,6 @@ const navigationConfig: NavigationTree[] = [
 		authority: [],
 		subMenu: [],
 	},
-	{
-		key: 'edit-profile',
-		path: '/edit-profile',
-		title: 'Edit Profile',
-		translateKey: 'nav.edit-profile',
-		icon: 'user',
-		type: NAV_ITEM_TYPE_ITEM,
-		authority: [],
-		subMenu: [],
-	},
 ]
 
 export default navigationConfig

@@ -17,7 +17,7 @@ const navigationIcon: NavigationIcons = {
     flos: <LuBoxes />,
     inbox: <Inbox />,
     orders: <MdOutlineShoppingCart />,
-    'edit-profile': <User />,
+    editProfile: <User />,
     singleMenu: <PiAcornDuotone />,
     collapseMenu: <PiArrowsInDuotone />,
     groupSingleMenu: <PiBookOpenUserDuotone />,

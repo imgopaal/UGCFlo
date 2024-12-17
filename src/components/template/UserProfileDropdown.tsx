@@ -5,6 +5,7 @@ import { useSessionUser } from '@/store/authStore'
 import { Link } from 'react-router-dom'
 import { PiUserDuotone, PiSignOutDuotone } from 'react-icons/pi'
 import { useAuth } from '@/auth'
+import { UserRoundPen } from 'lucide-react'
 
 type DropdownList = {
     label: string
@@ -13,6 +14,11 @@ type DropdownList = {
 }
 
 const dropdownItemList: DropdownList[] = [
+    {
+        label: 'Edit Profile',
+        path: 'edit-profile',
+        icon: <UserRoundPen />
+    }
 ]
 
 const _UserDropdown = () => {

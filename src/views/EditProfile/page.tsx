@@ -8,6 +8,7 @@ import { Label } from '@/components/shadcn/ui/label'
 import { Switch } from '@/components/shadcn/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn/ui/tabs'
 import { Textarea } from '@/components/shadcn/ui/textarea'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/shadcn/ui/dialog'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -15,11 +16,40 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/shadcn/ui/dropdown-menu'
 import { Badge } from '@/components/shadcn/ui/badge'
+import { PortfolioWall } from '@/components/pages/EditProfile/PortfolioWall'
+import { PublicProfile } from '@/components/pages/EditProfile/PublicProfile'
+import { useUser } from '@/store/user'
+import UGCLoader from '@/components/shared/UGCLoader'
 
 export default function EditProfile() {
-	const [isPublic, setIsPublic] = useState(false)
-	const [isVerified, setIsVerified] = useState(false)
+	const { user, loading, updateUser } = useUser()
 	const [activeTab, setActiveTab] = useState('personal')
+	const [isUpdating, setIsUpdating] = useState(false)
+	const [showPublicProfile, setShowPublicProfile] = useState(false)
+
+	const handleUpdateProfile = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+		setIsUpdating(true)
+		const formData = new FormData(event.currentTarget)
+		const updatedUser = {
+			firstName: formData.get('firstName') as string,
+			lastName: formData.get('lastName') as string,
+			email: formData.get('email') as string,
+			phone: formData.get('phone') as string,
+			bio: formData.get('bio') as string,
+			isPublic: formData.get('isPublic') === 'on',
+		}
+		await updateUser(updatedUser)
+		setIsUpdating(false)
+	}
+
+	if (loading) {
+		return <UGCLoader />
+	}
+
+	if (!user) {
+		return <div>Error loading user data</div>
+	}
 
 	return (
 		<div className="container max-w-4xl py-6 space-y-8">
@@ -31,7 +61,7 @@ export default function EditProfile() {
 					</p>
 				</div>
 				<div className="flex items-center gap-4">
-					{isVerified && (
+					{user.isVerified && (
 						<Badge variant="secondary" className="gap-1">
 							<Shield className="w-3 h-3" />
 							Verified Creator
@@ -45,16 +75,19 @@ export default function EditProfile() {
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
-							<DropdownMenuItem>Copy Profile Link</DropdownMenuItem>
-							<DropdownMenuItem>Share to Twitter</DropdownMenuItem>
-							<DropdownMenuItem>Share to Instagram</DropdownMenuItem>
+							<DropdownMenuItem className="cursor-pointer" onSelect={() => setShowPublicProfile(true)}>
+								View Public Profile
+							</DropdownMenuItem>
+							<DropdownMenuItem className="cursor-pointer">Copy Profile Link</DropdownMenuItem>
+							<DropdownMenuItem className="cursor-pointer">Share to Twitter</DropdownMenuItem>
+							<DropdownMenuItem className="cursor-pointer">Share to Instagram</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
 			</div>
 
 			<Tabs value={activeTab} onValueChange={setActiveTab}>
-				<TabsList>
+				<TabsList className="grid grid-cols-2 md:grid-cols-4 h-full">
 					<TabsTrigger value="personal">Personal Information</TabsTrigger>
 					<TabsTrigger value="verification">Verification</TabsTrigger>
 					<TabsTrigger value="portfolio">Portfolio</TabsTrigger>
@@ -69,57 +102,66 @@ export default function EditProfile() {
 								This information facilitates collaborations and ensures a seamless experience.
 							</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-6">
-							<div className="flex items-center gap-6">
-								<div className="relative">
-									<div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center">
-										<User className="w-10 h-10 text-muted-foreground" />
+						<CardContent>
+							<form onSubmit={handleUpdateProfile} className="space-y-6">
+								<div className="flex items-center gap-6">
+									<div className="relative">
+										<img
+											src={user.avatar}
+											alt={`${user.firstName} ${user.lastName}`}
+											className="w-20 h-20 rounded-full object-cover"
+										/>
+										<Button size="icon" variant="secondary" className="absolute -bottom-2 -right-2">
+											<Camera className="w-4 h-4" />
+										</Button>
 									</div>
-									<Button size="icon" variant="secondary" className="absolute -bottom-2 -right-2">
-										<Camera className="w-4 h-4" />
-									</Button>
-								</div>
-								<div className="flex-1">
-									<div className="flex items-center justify-between">
-										<div className="space-y-1">
-											<h4 className="text-sm font-medium">Profile Visibility</h4>
-											<p className="text-sm text-muted-foreground">
-												Make your profile visible to everyone
-											</p>
+									<div className="flex-1">
+										<div className="flex items-center justify-between">
+											<div className="space-y-1">
+												<h4 className="text-sm font-medium">Profile Visibility</h4>
+												<p className="text-sm text-muted-foreground">
+													Make your profile visible to everyone
+												</p>
+											</div>
+											<Switch
+												name="isPublic"
+												checked={user.isPublic}
+											/>
 										</div>
-										<Switch checked={isPublic} onCheckedChange={setIsPublic} />
 									</div>
 								</div>
-							</div>
 
-							<div className="grid gap-4 md:grid-cols-2">
-								<div className="space-y-2">
-									<Label htmlFor="firstName">First Name</Label>
-									<Input id="firstName" placeholder="John" />
+								<div className="grid gap-4 md:grid-cols-2">
+									<div className="space-y-2">
+										<Label htmlFor="firstName">First Name</Label>
+										<Input id="firstName" name="firstName" defaultValue={user.firstName} />
+									</div>
+									<div className="space-y-2">
+										<Label htmlFor="lastName">Last Name</Label>
+										<Input id="lastName" name="lastName" defaultValue={user.lastName} />
+									</div>
 								</div>
-								<div className="space-y-2">
-									<Label htmlFor="lastName">Last Name</Label>
-									<Input id="lastName" placeholder="Doe" />
-								</div>
-							</div>
 
-							<div className="grid gap-4 md:grid-cols-2">
-								<div className="space-y-2">
-									<Label htmlFor="email">Email Address</Label>
-									<Input id="email" type="email" placeholder="john@example.com" />
+								<div className="grid gap-4 md:grid-cols-2">
+									<div className="space-y-2">
+										<Label htmlFor="email">Email Address</Label>
+										<Input id="email" name="email" type="email" defaultValue={user.email} />
+									</div>
+									<div className="space-y-2">
+										<Label htmlFor="phone">Phone Number</Label>
+										<Input id="phone" name="phone" type="tel" defaultValue={user.phone} />
+									</div>
 								</div>
+
 								<div className="space-y-2">
-									<Label htmlFor="phone">Phone Number</Label>
-									<Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+									<Label htmlFor="bio">About</Label>
+									<Textarea id="bio" name="bio" defaultValue={user.bio} className="min-h-[100px]" />
 								</div>
-							</div>
 
-							<div className="space-y-2">
-								<Label htmlFor="bio">About</Label>
-								<Textarea id="bio" placeholder="Tell us about yourself" className="min-h-[100px]" />
-							</div>
-
-							<Button>Update Profile</Button>
+								<Button type="submit" disabled={isUpdating}>
+									{isUpdating ? 'Updating...' : 'Update Profile'}
+								</Button>
+							</form>
 						</CardContent>
 					</Card>
 				</TabsContent>
@@ -167,33 +209,7 @@ export default function EditProfile() {
 				</TabsContent>
 
 				<TabsContent value="portfolio" className="space-y-4">
-					<Card>
-						<CardHeader>
-							<CardTitle>Portfolio Wall</CardTitle>
-							<CardDescription>Share your work and build your personal brand</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<div className="grid gap-4">
-								<div className="p-8 text-center border-2 border-dashed rounded-lg">
-									<div className="space-y-2">
-										<Upload className="w-8 h-8 mx-auto text-muted-foreground" />
-										<h3 className="font-medium">Upload Media</h3>
-										<p className="text-sm text-muted-foreground">
-											Drag and drop your photos or videos here
-										</p>
-										<Button variant="secondary">Browse Files</Button>
-									</div>
-								</div>
-
-								<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-									{/* Placeholder for portfolio items */}
-									{Array.from({ length: 6 }).map((_, i) => (
-										<div key={i} className="aspect-square rounded-lg bg-muted animate-pulse" />
-									))}
-								</div>
-							</div>
-						</CardContent>
-					</Card>
+					<PortfolioWall user={user} updateUser={updateUser} />
 				</TabsContent>
 
 				<TabsContent value="notifications" className="space-y-4">
@@ -231,6 +247,16 @@ export default function EditProfile() {
 					</Card>
 				</TabsContent>
 			</Tabs>
+
+			<Dialog open={showPublicProfile} onOpenChange={setShowPublicProfile}>
+				<DialogContent className="min-w-[80vw] max-w-[95vw] max-h-[90vh] overflow-y-auto">
+					<DialogHeader>
+						<DialogTitle>Public Profile</DialogTitle>
+						<DialogDescription>This is how your profile appears to the public</DialogDescription>
+					</DialogHeader>
+					<PublicProfile user={user} />
+				</DialogContent>
+			</Dialog>
 		</div>
 	)
 }
