@@ -8,6 +8,7 @@ import navigationConfig from '@/configs/navigation.config'
 import { useThemeStore } from '@/store/themeStore'
 import { useRouteKeyStore } from '@/store/routeKeyStore'
 import { useSessionUser } from '@/store/authStore'
+import UserNav from '../layouts/PostLoginLayout/components/UserNav'
 
 const VerticalMenuContent = lazy(
     () => import('@/components/template/VerticalMenuContent'),
@@ -66,6 +67,7 @@ const MobileNav = () => {
                         />
                     )}
                 </Suspense>
+                <UserNav />
             </Drawer>
         </>
     )
