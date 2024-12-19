@@ -27,11 +27,11 @@ const CollapsibleSide = ({ children }: CommonProps) => {
                                 {/* {larger.lg && <SideNavToggle />} */}
                             </>
                         }
-                        headerEnd={
-                            <>
-                                <UserProfileDropdown hoverable={false} />
-                            </>
-                        }
+                        // headerEnd={
+                        //     <>
+                        //         <UserProfileDropdown hoverable={false} />
+                        //     </>
+                        // }
                     />
                     <div className="h-full flex flex-auto flex-col">
                         {children}
