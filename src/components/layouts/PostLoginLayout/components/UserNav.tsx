@@ -4,7 +4,37 @@ import { Card } from '@/components/shadcn/ui/card'
 import { Separator } from '@/components/shadcn/ui/separator'
 import { useRouteKeyStore } from '@/store/routeKeyStore'
 import { LogOut, User, UserPenIcon } from 'lucide-react'
+import { ReactNode } from 'react'
+import { BiSupport } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+
+interface UserNavRoute {
+	key: string
+	path: string
+	icon: ReactNode
+	label: string
+}
+
+const userNavRoutes: UserNavRoute[] = [
+	{
+		key: 'profile',
+		path: '/profile',
+		icon: <User className="mr-2 h-4 w-4" />,
+		label: 'Profile',
+	},
+	{
+		key: 'edit-profile',
+		path: '/edit-profile',
+		icon: <UserPenIcon className="mr-2 h-4 w-4" />,
+		label: 'Edit Profile',
+	},
+	{
+		key: 'help-centre',
+		path: '/help-centre',
+		icon: <BiSupport className="mr-2 h-4 w-4" />,
+		label: 'Support',
+	},
+]
 
 export default function UserNav() {
 	const { signOut } = useAuth()
@@ -26,26 +56,21 @@ export default function UserNav() {
 			<Separator />
 			<div className="flex-1 p-4 bg-white">
 				<div className="space-y-1">
-					<Button
-						asChild
-						variant="ghost"
-						className={`w-full justify-start hover:bg-gray-50 ${currentRouteKey === 'profile' && 'bg-gray-100'}`}
-					>
-						<Link to="/profile">
-							<User className="mr-2 h-4 w-4" />
-							Profile
-						</Link>
-					</Button>
-					<Button
-						asChild
-						variant="ghost"
-						className={`w-full justify-start hover:bg-gray-50 ${currentRouteKey === 'edit-profile' && 'bg-gray-100'}`}
-					>
-						<Link to="/edit-profile">
-							<UserPenIcon className="mr-2 h-4 w-4" />
-							Edit Profile
-						</Link>
-					</Button>
+					{userNavRoutes.map(({ key, path, icon, label }) => (
+						<Button
+							key={key}
+							asChild
+							variant="ghost"
+							className={`w-full justify-start hover:bg-gray-50 ${
+								currentRouteKey === key && 'bg-gray-100'
+							}`}
+						>
+							<Link to={path}>
+								{icon}
+								{label}
+							</Link>
+						</Button>
+					))}
 				</div>
 			</div>
 			<Separator />
