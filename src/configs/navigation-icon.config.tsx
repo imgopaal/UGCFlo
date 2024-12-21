@@ -9,6 +9,7 @@ import {
     PiAcornDuotone,
     PiBagSimpleDuotone
 } from 'react-icons/pi'
+import { LiaFileContractSolid } from "react-icons/lia";
 
 export type NavigationIcons = Record<string, JSX.Element>
 
@@ -17,8 +18,7 @@ const navigationIcon: NavigationIcons = {
     flos: <LuBoxes />,
     inbox: <Inbox />,
     orders: <MdOutlineShoppingCart />,
-    // 'edit-profile': <User />,
-    // profile: <User />,
+    contracts: <LiaFileContractSolid />,
     singleMenu: <PiAcornDuotone />,
     collapseMenu: <PiArrowsInDuotone />,
     groupSingleMenu: <PiBookOpenUserDuotone />,
